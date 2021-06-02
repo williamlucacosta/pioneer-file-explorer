@@ -1,0 +1,11 @@
+{
+  "name": "pioneer",
+  "version": "1.0.0",
+  "description": "File Explored Based on Graph Navigation",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Luca Costa",
+  "license": "MIT"
+}
