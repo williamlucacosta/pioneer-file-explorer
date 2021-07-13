@@ -1,0 +1,61 @@
+.list-viewer-container { 
+    width: 40%;
+    height: 100%;
+
+    background-color: rgb(190, 190, 190); 
+}
+
+.list-viewer-tools {
+    width: 100%;
+    height: 40px;
+    background-color: #160f1b;
+
+    justify-content: flex-start;
+}
+
+.list-viewer-tools #back-button {
+    width: 16px;
+    height: 16px;
+}
+
+#list-viewer {
+    width: 100%;
+    height: 100%;
+    background-color: #312e41;
+
+    overflow-y: auto;
+}
+#list-viewer::-webkit-scrollbar {
+    width: 0.25rem;
+}
+#list-viewer::-webkit-scrollbar-track {
+    background: #1e1e24;
+}
+#list-viewer::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+
+
+.file-container {
+    width: 100%;
+    height: 50px;
+
+    transition: 0.3s linear;
+}
+.file-container:hover {
+    background-color: #46324b;
+}
+.file-container:hover .file-name {
+    transform: scale(1.05);
+}
+
+.file-container .file-name {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: whitesmoke;
+
+    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+}
+

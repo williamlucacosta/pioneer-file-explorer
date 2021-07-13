@@ -3,7 +3,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/toolbar.css">
+    <link rel="stylesheet" href="styles/list-viewer.css">
+    <link rel="stylesheet" href="styles/graph-viewer.css">
     <!-- <script type="module" src="js/renderer.js" defer></script> -->
     <title>Hello World!</title>
   </head>
@@ -13,7 +16,7 @@
       <!-- TOOLBAR -->
       <div class="menu flex-centered">
         <div class="app-controls"></div>
-        <div class="window-controls | flex-centered">
+        <div class="window-controls flex-centered">
           <img id="minimize-control" src="images/icons/minimize.png">
           <img id="maximize-control" src="images/icons/maximize.png">
           <img id="close-control" src="images/icons/close.png">
@@ -21,13 +24,15 @@
       </div>
 
       <!-- PAGE CONTENT -->
-      <div class="page-content | flex-centered">
+      <div class="page-content flex-centered">
         <div class="graph-viewer-container">
           <canvas id="graph-viewer"></canvas>
         </div>
-        <div class="file-viewer-container">
-          <div class="file-viewer-tools"></div>
-          <div class="file-viewer"></div>
+        <div class="list-viewer-container">
+          <div class="list-viewer-tools flex-centered">
+            <img id="back-button" src="./images/icons/back.png" alt="BACK">
+          </div>
+          <div id="list-viewer"></div>
         </div>
       </div>
     </div>

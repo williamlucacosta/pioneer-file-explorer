@@ -1,0 +1,30 @@
+.menu {
+    -webkit-app-region: drag;
+
+    width: 100%;
+    height: 20px;
+
+    background-color: rgb(31, 33, 37);
+    justify-content: flex-end !important;
+}
+
+.window-controls {
+    height: 100%;
+}
+
+.window-controls img {
+    -webkit-app-region: no-drag;
+
+    margin-right: 11px;
+    filter: invert(50%);
+
+    transition: all .7s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.window-controls img:hover {
+    filter: invert(100%);
+}
+#minimize-control { width: 11px; height: 11px; }
+#maximize-control { width: 11px; height: 11px; }
+#close-control { width: 9px; height: 9px; }
