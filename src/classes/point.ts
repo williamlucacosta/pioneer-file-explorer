@@ -1,3 +1,5 @@
+import Konva from "konva";
+
 export class Point {
     static radius: number = 5;
     x: number;
@@ -8,10 +10,14 @@ export class Point {
         this.y = y;
     }
 
-    Draw(ctx: CanvasRenderingContext2D, color?: string) {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, Point.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = color != undefined ? color : '#666666';
-        ctx.fill();
+    draw(layer: Konva.Layer, color?: string): void {
+        const circle = new Konva.Circle({
+            x: this.x,
+            y: this.y,
+            radius: 5,
+            fill: color != undefined ? color : '#808080',
+        });
+
+        layer.add(circle)
     }
 }
