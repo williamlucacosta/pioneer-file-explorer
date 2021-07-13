@@ -3,15 +3,15 @@ import fs from 'fs';
 
 import * as PATH_MANAGER from './path-manager'
 
-import { File, Directory } from './types';
+import { File, Directory, FileSystemElement } from './types';
 
-let currentFiles: File[] = [];
+let currentFiles: FileSystemElement[] = [];
 
-export function getFiles(): File[] {
+export function getFiles(): FileSystemElement[] {
     return currentFiles;
 }
 
-export function setFiles(files: File[]): void {
+export function setFiles(files: FileSystemElement[]): void {
     currentFiles = files;
 }
 
@@ -19,10 +19,10 @@ export function setPathFiles(path?: string): void {
     currentFiles = path === undefined ? getPathFiles(PATH_MANAGER.getPath()) : getPathFiles(path)
 }
 
-export function getPathFiles(path?: string): File[] {
+export function getPathFiles(path?: string): FileSystemElement[] {
     const usingPath = path === undefined ? PATH_MANAGER.getPath() : path
 
-    const files: File[] = fs.readdirSync(usingPath).map(name => {
+    const files: FileSystemElement[] = fs.readdirSync(usingPath).map(name => {
         const stats = fs.statSync(M_PATH.join(usingPath, name))
 
         if(stats.isDirectory()) {

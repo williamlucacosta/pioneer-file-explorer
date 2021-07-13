@@ -1,4 +1,4 @@
-import { Point, Viewer, File } from "./types"
+import { Point, Viewer, FileSystemElement, Directory } from "./types"
 
 import * as FILE_MANAGER from './file-manager'
 
@@ -17,24 +17,9 @@ export class GraphViewer implements Viewer {
     draw(): void {
         this.resizeCanvasToParent()
 
-        const files: File[] = FILE_MANAGER.getFiles();
-        let i: number;
+        this.getCenter().Draw(this.context, '#ffffff');
 
-        const centerPoint = this.getCenter()
-        centerPoint.Draw(this.context, '#ffffff');
-
-        const filesNumber: number = files.length
-        
-        for(i = 0; i < filesNumber; i++)
-        {
-            const angle: number = i * (360/filesNumber)
-            const pointX: number = this.getCenter().x + 50*Math.cos(degreesToRadians(angle))
-            const pointY: number = this.getCenter().y - 50*Math.sin(degreesToRadians(angle))
-            const point = new Point(pointX, pointY);
-            console.log(point);
-
-            point.Draw(this.context)
-        } 
+        this.drawFiles(FILE_MANAGER.getFiles());
     }
     
     addListeners(): void {
@@ -44,8 +29,6 @@ export class GraphViewer implements Viewer {
             }, false);
         })
     }
-
-    
 
     getCenter(): Point {
         const centerX: number = this.canvas.clientWidth/2;
@@ -61,6 +44,21 @@ export class GraphViewer implements Viewer {
         this.canvas.height = parentElement.clientHeight;
     }
 
+    drawFiles(files: FileSystemElement[]): void {
+        const filesNumber: number = files.length
+        let i: number;
+        
+        for(i = 0; i < filesNumber; i++)
+        {
+            const angle: number = i * (360/filesNumber)
+            const pointX: number = this.getCenter().x + 50*Math.cos(degreesToRadians(angle))
+            const pointY: number = this.getCenter().y - 50*Math.sin(degreesToRadians(angle))
+            const point: Point = new Point(pointX, pointY);
+            const pointColor: string = files[i] instanceof Directory ? "#9D9A37" : "#ffffff"
+
+            point.Draw(this.context, pointColor)
+        } 
+    }
     
 
     drawPath(path: string): void {

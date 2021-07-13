@@ -1,7 +1,7 @@
 import { getPath } from "./path-manager"
 import { getPathFiles } from "./file-manager";
 
-import { File, Viewer } from "./types"
+import { Viewer, FileSystemElement } from "./types"
 
 export class ListViewer implements Viewer {
     container: HTMLElement;
@@ -16,7 +16,7 @@ export class ListViewer implements Viewer {
 
 
     showFiles() {
-        const files: File[] = getPathFiles(getPath()) 
+        const files: FileSystemElement[] = getPathFiles(getPath()) 
 
         files.forEach((file) => {
             const fileElement: HTMLElement = file.getElement();
