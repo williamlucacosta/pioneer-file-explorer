@@ -2,31 +2,61 @@ import { Point, Viewer, FileSystemElement, Directory } from "./types"
 
 import * as FILE_MANAGER from './file-manager'
 import Konva from "konva";
+import { Vector2d } from "konva/types/types";
+import { KonvaEventObject } from "konva/types/Node";
 
+interface Size {
+    width: number,
+    height: number,
+}
 
 export class GraphViewer implements Viewer {
+    parentElement: HTMLElement
     stage: Konva.Stage;
     layer: Konva.Layer;
-    parentElement: HTMLElement
-    startParentWidth: number;
-    startParentHeight: number;
+    scaleBy: number = 1.01;
+
     
     constructor(parentSelector: string) {
         this.parentElement = <HTMLDivElement> document.querySelector(parentSelector);
-        this.startParentWidth = this.parentElement.clientWidth;
-        this.startParentHeight = this.parentElement.clientHeight;
 
+        this.layer = new Konva.Layer();
         this.stage = new Konva.Stage({
             container: 'graph-viewer-container',
-            width: this.startParentWidth,
-            height: this.startParentHeight,
+            width: this.parentElement.clientWidth,
+            height: this.parentElement.clientHeight,
         });
-        this.layer = new Konva.Layer();
-
         this.stage.add(this.layer);
         
-        this.fitStageIntoParentContainer();
-        window.addEventListener('resize', (event) => {this.fitStageIntoParentContainer();});
+        ['load', 'resize'].forEach((listener) => {
+            window.addEventListener(listener, this.fitStageIntoParentContainer.bind(this))
+        });
+
+        this.stage.on('wheel', (e)=>{console.log("PROVA"); this.testing.bind(this)(e)});
+    }
+
+    testing(event: KonvaEventObject<WheelEvent>): void {
+        event.evt.preventDefault();
+        
+        var oldScale = this.stage.scaleX();
+
+        var pointer: Vector2d = <Vector2d> this.stage.getPointerPosition();
+
+        var mousePointTo = {
+            x: (pointer.x - this.stage.x()) / oldScale,
+            y: (pointer.y - this.stage.y()) / oldScale,
+        };
+
+        var newScale = event.evt.deltaY > 0 ? oldScale * this.scaleBy : oldScale / this.scaleBy;
+
+        this.stage.scale({ x: newScale, y: newScale });
+
+        var newPos = {
+            x: pointer.x - mousePointTo.x * newScale,
+            y: pointer.y - mousePointTo.y * newScale,
+        };
+
+        this.stage.position(newPos);
     }
 
     draw(): void {
@@ -40,6 +70,10 @@ export class GraphViewer implements Viewer {
     fitStageIntoParentContainer() {
         this.stage.width(this.parentElement.clientWidth);
         this.stage.height(this.parentElement.clientHeight);
+
+        this.layer.destroyChildren();
+        this.draw();
+
     }
     
     getCenter(): Point {
@@ -62,7 +96,7 @@ export class GraphViewer implements Viewer {
             const pointColor: string = files[i] instanceof Directory ? "#9D9A37" : "#ffffff"
 
             point.draw(this.layer, pointColor)
-        } 
+        }
     }
 }
 
