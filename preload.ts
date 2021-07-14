@@ -8,12 +8,14 @@ import { GraphViewer, ListViewer } from "./src/types";
 PATH_MANAGER.setPath("C:/Users/willi/Desktop");
 FILE_MANAGER.setPathFiles();
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     IPC_MANAGER.AddWindowControl("#close-control", IPC_MANAGER.WINDOW_COMMANDS.CLOSE);
     IPC_MANAGER.AddWindowControl("#maximize-control", IPC_MANAGER.WINDOW_COMMANDS.MAXIMIZE);
     IPC_MANAGER.AddWindowControl("#minimize-control", IPC_MANAGER.WINDOW_COMMANDS.MINIMIZE);
 
-    const graphViewer = new GraphViewer("#graph-viewer");
+    const test: HTMLElement = <HTMLElement> document.querySelector("#graph-viewer-container");
+    console.group(test.clientWidth, test.clientHeight);
+    const graphViewer = new GraphViewer("#graph-viewer-container");
     graphViewer.draw();
 
 

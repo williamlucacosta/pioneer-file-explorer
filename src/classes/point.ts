@@ -20,4 +20,6 @@ export class Point {
 
         layer.add(circle)
     }
+
+    
 }

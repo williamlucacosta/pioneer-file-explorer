@@ -7,24 +7,26 @@ import Konva from "konva";
 export class GraphViewer implements Viewer {
     stage: Konva.Stage;
     layer: Konva.Layer;
-    parentElement: HTMLElement;
+    parentElement: HTMLElement
+    startParentWidth: number;
+    startParentHeight: number;
     
-    constructor(canvasSelector: string) {
-        this.parentElement = <HTMLElement> document.querySelector("#graph-viewer-container");
-        const parentWidth: number = this.parentElement.clientWidth;
-        const parentHeight: number = this.parentElement.clientHeight;
+    constructor(parentSelector: string) {
+        this.parentElement = <HTMLDivElement> document.querySelector(parentSelector);
+        this.startParentWidth = this.parentElement.clientWidth;
+        this.startParentHeight = this.parentElement.clientHeight;
 
         this.stage = new Konva.Stage({
             container: 'graph-viewer-container',
-            width: parentWidth,
-            height: parentHeight,
+            width: this.startParentWidth,
+            height: this.startParentHeight,
         });
-
         this.layer = new Konva.Layer();
 
+        this.stage.add(this.layer);
+        
         this.fitStageIntoParentContainer();
-
-        window.addEventListener('resize', this.fitStageIntoParentContainer);
+        window.addEventListener('resize', (event) => {this.fitStageIntoParentContainer();});
     }
 
     draw(): void {
@@ -32,18 +34,14 @@ export class GraphViewer implements Viewer {
 
         this.drawFiles(FILE_MANAGER.getFiles());
 
-        this.stage.add(this.layer);
+        this.layer.draw();
     }
 
     fitStageIntoParentContainer() {
-        var zoom: number = 1000;
-        var scale: number = this.parentElement.clientWidth / zoom;
-
-        this.stage.width(zoom * scale);
-        this.stage.height(zoom * scale);
-        this.stage.scale({ x: scale, y: scale });
+        this.stage.width(this.parentElement.clientWidth);
+        this.stage.height(this.parentElement.clientHeight);
     }
-
+    
     getCenter(): Point {
         const centerX: number = this.parentElement.clientWidth/2;
         const centerY: number = this.parentElement.clientHeight/2;
