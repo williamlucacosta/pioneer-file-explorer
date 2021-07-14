@@ -1,4 +1,5 @@
 import Konva from "konva";
+import { IFrame } from "konva/types/types";
 
 export class Point {
     static radius: number = 5;
@@ -15,9 +16,10 @@ export class Point {
             x: this.x,
             y: this.y,
             radius: 5,
+            opacity: 0.5,
             fill: color != undefined ? color : '#808080',
         });
-
+        
         layer.add(circle)
     }
 

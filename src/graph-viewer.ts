@@ -14,9 +14,8 @@ export class GraphViewer implements Viewer {
     parentElement: HTMLElement
     stage: Konva.Stage;
     layer: Konva.Layer;
-    scaleBy: number = 1.01;
+    scaleBy: number = 1.2;
 
-    
     constructor(parentSelector: string) {
         this.parentElement = <HTMLDivElement> document.querySelector(parentSelector);
 
@@ -25,6 +24,7 @@ export class GraphViewer implements Viewer {
             container: 'graph-viewer-container',
             width: this.parentElement.clientWidth,
             height: this.parentElement.clientHeight,
+            draggable: true,
         });
         this.stage.add(this.layer);
         
@@ -32,10 +32,10 @@ export class GraphViewer implements Viewer {
             window.addEventListener(listener, this.fitStageIntoParentContainer.bind(this))
         });
 
-        this.stage.on('wheel', (e)=>{console.log("PROVA"); this.testing.bind(this)(e)});
+        this.stage.on('wheel', (e) => {this.onWheel.bind(this)(e)});
     }
 
-    testing(event: KonvaEventObject<WheelEvent>): void {
+    onWheel(event: KonvaEventObject<WheelEvent>): void {
         event.evt.preventDefault();
         
         var oldScale = this.stage.scaleX();
@@ -47,7 +47,7 @@ export class GraphViewer implements Viewer {
             y: (pointer.y - this.stage.y()) / oldScale,
         };
 
-        var newScale = event.evt.deltaY > 0 ? oldScale * this.scaleBy : oldScale / this.scaleBy;
+        var newScale = event.evt.deltaY > 0 ? oldScale / this.scaleBy : oldScale * this.scaleBy;
 
         this.stage.scale({ x: newScale, y: newScale });
 
@@ -57,6 +57,7 @@ export class GraphViewer implements Viewer {
         };
 
         this.stage.position(newPos);
+        this.stage.batchDraw();
     }
 
     draw(): void {
@@ -64,7 +65,7 @@ export class GraphViewer implements Viewer {
 
         this.drawFiles(FILE_MANAGER.getFiles());
 
-        this.layer.draw();
+        this.stage.batchDraw();
     }
 
     fitStageIntoParentContainer() {
@@ -72,8 +73,7 @@ export class GraphViewer implements Viewer {
         this.stage.height(this.parentElement.clientHeight);
 
         this.layer.destroyChildren();
-        this.draw();
-
+        this.draw()
     }
     
     getCenter(): Point {
