@@ -1,28 +1,28 @@
 # Pioneer (file-explorer)
 
-## **SINOPSI**
-L'applicazione desktop permetterà di uscire dalle vecchie meccaniche di navigazione dove si ha una visione solo del precedente e del successivo.
-Grazie a Pioneer sarai in grado di avere una visuale completa dei tuoi contenuti, grazie alla sua **"Mappa Stellare"**, inoltre sarai abbracciato dalla community grazie al supporto degli eventuali Plugins aggiuntivi.
+## **Behaviour**
+Pioneer File Explorer, enanched mechanics and styles, you'll be able to better overview your contents thanks to the **"Stellar Map"** and to the community's support plugins.
 
-## **Funzionalità**
-Le funzionalità che implementerà Pioneer saranno le seguenti:
-- **Folder Visualization** meccanica già esistente.
-- **Icon Support** supporta icone dei tipi di file più conosciuti.
-- **File Preview** supporta la preview di alcuni file base.
-- **Stellar Map** permette di: <br>
-    - visualizzare tutti i contenuti di una struttura di cartelle
-    - cancellare un intero ramo di cartelle
-    - creare nuove cartelle da quella seleziona
+## **Functionalities**
+Pioneer will implement thoose functionalities:
+- **Standard Folders Visualization**
+- **Content Extension Icon**
+- **Common File Preview & Opening**
+- **Stellar Map**
+    - **Visualize** directory contents
+    - **Delete** an entire directory/file
+    - **Create** new directory/file
+    - **Move** (drag-drop) selected directory/file
 
-## **Configurazione**
+## **Configurations**
 
 
 ## **User Experience**
 
 ## **User Interface**
 - **Stellar Map** <br>
-    - Visualizza dei cerchi colorati in base al tipo di file e di raggio proporzionale alla grandezza del file stesso.
-    - I collegamenti illuminano tutti i rami sottostanti a quello indicato con il cursore 
+    - Circle representing directory/files, different colors and radius based on type and size.
+    - Mouse over will shine all the first connected nodes and connections.
 
-## **FALLE**
+## **PROBLEMS**
 [Better Use require on renderer.js](https://github.com/electron/electron/issues/9920#issuecomment-575839738)
